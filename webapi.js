@@ -15,6 +15,7 @@ async function search(term) {
 
     child.stdout.on("end", () => {
       try {
+        console.log("parsing data", data);
         const result = JSON.parse(data);
         resolve(result);
       } catch (error) {

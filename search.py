@@ -29,9 +29,8 @@ def search_products(df, term, n=3):
     return results
 
 
-
 search_term = sys.argv[1]
-datafile_path = "data/products_with_embedding.csv"
+datafile_path = "./data/products_with_embedding.csv"
 
 df = pd.read_csv(datafile_path)
 df["embedding"] = df.embedding.apply(eval).apply(np.array)
@@ -41,4 +40,3 @@ results = results[['name', 'link', 'image_url']]
 data = results.to_dict('records')
 json_data = json.dumps(data)
 print(json_data)
-
