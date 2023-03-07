@@ -68,7 +68,7 @@ const init = async () => {
       return h
         .response({
           term: term,
-          foo: searchResult,
+          items: searchResult,
         })
         .code(200);
     },
