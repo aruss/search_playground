@@ -1,0 +1,15 @@
+{
+  "name": "toolssearch",
+  "version": "1.0.0",
+  "description": "- https://radimrehurek.com/gensim/models/doc2vec.html\r - https://beta.openai.com/docs/guides/embeddings/what-are-embeddings\r - https://github.com/openai/openai-cookbook/blob/main/examples/Question_answering_using_embeddings.ipynb",
+  "main": "webapi.js",
+  "scripts": {
+    "start": "node webapi.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/hapi": "^21.3.0"
+  }
+}
