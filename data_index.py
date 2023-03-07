@@ -10,4 +10,4 @@ for (dirpath, dirnames, filenames) in walk("./input"):
     inputfiles.extend(filenames)
     break
 
-print(onlyfiles)
+print(inputfiles)

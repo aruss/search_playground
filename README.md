@@ -6,3 +6,4 @@
 - https://github.com/openai/openai-cookbook/blob/main/examples/Question_answering_using_embeddings.ipynb
 - https://github.com/spotify/annoy
 - https://hapi.dev/
+
