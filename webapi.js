@@ -56,7 +56,7 @@ const init = async () => {
       // if no term provided return empty result
       if (!term) {
         return h
-          .response({      
+          .response({
             message:
               "provide search term by setting q query parameter ?q=your_search_term",
           })
