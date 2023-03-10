@@ -36,7 +36,7 @@ df = pd.read_csv(datafile_path)
 df["embedding"] = df.embedding.apply(eval).apply(np.array)
 
 results = search_products(df, search_term, n=1)
-results = results[['name', 'link', 'image_url']]
+results = results[['name', 'similarity']]
 data = results.to_dict('records')
-json_data = json.dumps(data)
+json_data = json.dumps(data, ensure_ascii=False, indent=2)
 print(json_data)
