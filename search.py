@@ -39,8 +39,15 @@ datafile_path = "./data/products_with_embedding.csv"
 df = pd.read_csv(datafile_path)
 df["embedding"] = df.embedding.apply(eval).apply(np.array)
 
-results = search_products(df, search_term, n=1)
-results = results[['name', 'link', 'image_url']]
-data = results.to_dict('records')
-json_data = json.dumps(data)
-print(json_data)
+results = search_products(df, search_term, n=3, threshold=0.73)
+results = results[['app_id', 'name', 'url', 'similarity']]
+
+if json_output:
+    print(json.dumps(results.to_dict('records'),
+          ensure_ascii=False).encode('utf8'))
+else:
+    template = "\n  AppId:      {app_id}\n  Name:       {name}\n  URL:        {url}\n  Similarity: {similarity}\n"
+    items = results.values.tolist()
+    for item in items:
+        print(template.format(
+            app_id=item[0], name=item[1], url=item[2], similarity=item[3]))
