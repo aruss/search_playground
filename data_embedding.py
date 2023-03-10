@@ -10,7 +10,7 @@ from openai.embeddings_utils import get_embedding
 load_dotenv()
 openai.api_key = os.getenv('OPENAI_API_KEY')
 
-df = pd.read_csv('./data/products.csv')
+df = pd.read_csv('./data/products.csv', encoding='utf-8')
 df = df[["app_id", "name", "url", "purpose",
          "product_description", "tool_description"]]
 df = df.dropna()

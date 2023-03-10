@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <title>Search</title>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Tool Search</h2>
+      <form onsubmit="findProduct(); return false;">
+        <div class="mb-3">
+          <input type="text" class="form-control" id="query" name="q" />
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+
+      <br />
+      <div id="resultList"></div>
+    </div>
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      function findProduct() {
+        const query = document.getElementById("query").value;
+        fetch(`/api?q=${query}`)
+          .then((response) => response.json())
+          .then((data) => {
+            const resultList = document.getElementById("resultList");
+            resultList.innerHTML = "";
+            data.items.forEach((item) => {
+              const name = item.name;
+              const url = item.url;
+              const similarity = item.similarity;
+              const resultDiv = document.createElement("div");
+              resultDiv.innerHTML = `<h4>${name}</h4><p>URL: <a href="${url}">${url}</a></p>`;
+              resultList.appendChild(resultDiv);
+            });
+          })
+          .catch((error) => console.error(error));
+      }
+    </script>
+  </body>
+</html>

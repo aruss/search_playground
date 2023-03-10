@@ -36,15 +36,14 @@ json_output = True if len(sys.argv) >= 3 else False
 
 datafile_path = "./data/products_with_embedding.csv"
 
-df = pd.read_csv(datafile_path)
+df = pd.read_csv(datafile_path, encoding='utf-8')
 df["embedding"] = df.embedding.apply(eval).apply(np.array)
 
 results = search_products(df, search_term, n=3, threshold=0.73)
 results = results[['app_id', 'name', 'url', 'similarity']]
 
 if json_output:
-    print(json.dumps(results.to_dict('records'),
-          ensure_ascii=False).encode('utf8'))
+    print(json.dumps(results.to_dict('records'), ensure_ascii=False))
 else:
     template = "\n  AppId:      {app_id}\n  Name:       {name}\n  URL:        {url}\n  Similarity: {similarity}\n"
     items = results.values.tolist()

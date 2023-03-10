@@ -5,7 +5,7 @@ const spawn = require("child_process").spawn;
 
 async function search(term) {
   return new Promise((resolve, reject) => {
-    const child = spawn("python", ["search.py", term]);
+    const child = spawn("python", ["search.py", term, "json"]);
 
     let data = "";
 
@@ -48,9 +48,20 @@ const init = async () => {
     host: "localhost",
   });
 
+  await server.register(require("@hapi/vision"));
+
+  server.views({
+    engines: {
+      html: require("handlebars"),
+    },
+    relativeTo: __dirname,
+    path: "templates",
+    helpersPath: "helpers",
+  });
+
   server.route({
     method: "GET",
-    path: "/",
+    path: "/api",
     handler: async (request, h) => {
       const term = getSearchTerm(request);
 
@@ -72,6 +83,15 @@ const init = async () => {
           items: searchResult,
         })
         .code(200);
+    },
+  });
+
+  server.route({
+    method: "GET",
+    path: "/",
+    handler: async (request, h) => {
+      
+      return h.view('index');
     },
   });
 
