@@ -11,11 +11,19 @@ load_dotenv()
 openai.api_key = os.getenv('OPENAI_API_KEY')
 
 df = pd.read_csv('./data/products.csv')
+df = df[["app_id", "name", "url", "purpose",
+         "product_description", "tool_description"]]
+df = df.dropna()
+df["combined"] = (
+    "Purpose: " + df.app_id.str.strip() + "ProductDescription" + df.product_description.str.strip() +
+    "tool_description" + df.tool_description.str.strip()
+)
+
 embedding_model = "text-embedding-ada-002"
 
 # You would probably need to tokenize the descriptions first
 
-df["embedding"] = df["description"].apply(
+df["embedding"] = df["combined"].apply(
     lambda c: get_embedding(c, engine=embedding_model))
 
 df.to_csv("./data/products_with_embedding.csv")
